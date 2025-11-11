@@ -29,6 +29,7 @@
             <div class="loading-text">กำลังคำนวณ...</div>
         </div>
 
+
         <!-- Main Content -->
         <div id="mainContent" class="main-content" style="display: none;">
             <!-- Input Panel -->
@@ -74,23 +75,25 @@
                         </div>
                     </div>
                     <div class="input-field">
-                        <label for="providentFundRate">หักกองทุน</label>
+                        <label for="providentFundRate">หักเงินสะสมกองทุน PVD</label>
                         <div class="input-with-suffix">
                             <input type="text" id="providentFundRate" placeholder="0">
                             <span class="suffix">%</span>
                         </div>
                     </div>
                     <div class="input-field">
-                        <label for="existingProvidentFund">เงินกองทุนปัจจุบัน</label>
+                        <label for="existingProvidentFund">เงินสะสมกองทุน PVD ปัจจุบัน</label>
                         <div class="input-with-suffix">
                             <input type="text" id="existingProvidentFund" placeholder="0">
                             <span class="suffix">฿</span>
                         </div>
                     </div>
                 </div>
-                <div class="calculate-button-container">
-                    <button id="calculateButton" class="calculate-button">🧮 คำนวณใหม่</button>
-                </div>
+        <!-- ใน div.calculate-button-container -->
+            <div class="calculate-button-container">
+                <button id="calculateButton" class="calculate-button">🧮 คำนวณใหม่</button>
+                <button id="clearButton" class="clear-button" onclick="clearSavedData()">🗑️ ล้างข้อมูล</button>
+            </div>
             </div>
 
             <!-- Basic Info -->
@@ -133,7 +136,7 @@
                 <div class="stat-card indigo">
                     <div class="stat-content">
                         <div>
-                            <p class="stat-title">เงินกองทุนเดิม (ปัจจุบัน)</p>
+                            <p class="stat-title">เงินสะสมกองทุน PVD ปัจจุบัน</p>
                             <p id="existingFundAtRetirement" class="stat-value">0฿</p>
                             <p class="stat-subtitle">รวมดอกเบี้ยแล้ว</p>
                         </div>
@@ -146,7 +149,7 @@
                 <div class="stat-card purple">
                     <div class="stat-content">
                         <div>
-                            <p class="stat-title">เงินกองทุนใหม่ (อนาคต)</p>
+                            <p class="stat-title">เงินสะสมกองทุน PVD ใหม่ (อนาคต)</p>
                             <p id="futureProvidentFund" class="stat-value">0฿</p>
                             <p id="providentFundDetails" class="stat-subtitle">0% + 0% (นายจ้าง) + ผลตอบแทน 1%</p>
                         </div>
@@ -180,7 +183,7 @@
                         <div>
                             <p class="stat-title">รวมเงินทั้งหมดที่จะได้รับ</p>
                             <p id="totalMoney" class="stat-value">0฿</p>
-                            <p class="stat-subtitle">เกษียณอายุ + กองทุนรวม</p>
+                            <p class="stat-subtitle">เกษียณอายุ + เงินสะสมกองทุน PVD</p>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
                             <line x1="12" y1="1" x2="12" y2="23"></line>
@@ -211,12 +214,12 @@
                         <div id="formula1" class="formula-card">
                             <p class="formula-title">สูตรที่ 1: เงินเดือน × 400 ÷ 30</p>
                             <p id="formula1Calc" class="formula-calc">0 × 400 ÷ 30 = 0 ฿</p>
-                            <p id="formula1Selected" class="formula-selected">✅ ใช้สูตรนี้เพราะให้ผลมากกว่า</p>
+                            <p id="formula1Selected" class="formula-selected">✅ ใช้สูตรนี้เพราะให้ผลตอบแทนมากกว่า</p>
                         </div>
                         <div id="formula2" class="formula-card">
                             <p class="formula-title">สูตรที่ 2: เงินเดือน × อายุงาน ÷ 2</p>
                             <p id="formula2Calc" class="formula-calc">0 × 0 ÷ 2 = 0 ฿</p>
-                            <p id="formula2Selected" class="formula-selected">✅ ใช้สูตรนี้เพราะให้ผลมากกว่า</p>
+                            <p id="formula2Selected" class="formula-selected">✅ ใช้สูตรนี้เพราะให้ผลตอบแทนมากกว่า</p>
                         </div>
                     </div>
                 </div>
@@ -229,19 +232,21 @@
                         <line x1="12" y1="1" x2="12" y2="23"></line>
                         <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                     </svg>
-                    <h2 class="summary-title">รวมเงินทั้งหมดที่จะได้รับ</h2>
+                    <h2 class="summary-title">รวมเงินทั้งหมดที่จะได้รับเมื่อเกษียณอายุ</h2>
                     <p id="summaryTotal" class="summary-total">0 ฿</p>
                     <div class="summary-details">
                         <p>เงินเกษียณอายุ: <span id="summaryRetirement">0 ฿</span></p>
-                        <p>เงินกองทุนรวม: <span id="summaryProvidentFund">0 ฿</span></p>
+                        <p>เงินกองทุน PVD รวม: <span id="summaryProvidentFund">0 ฿</span></p>
                         <div class="summary-subdetails">
-                            <p>• เงินกองทุนเดิม: <span id="summaryExistingFund">0 ฿</span></p>
-                            <p>• เงินกองทุนใหม่: <span id="summaryFutureFund">0 ฿</span></p>
+                            <p>• เงินสะสมกองทุน PVD เดิม: <span id="summaryExistingFund">0 ฿</span></p>
+                            <p>• เงินสะสมกองทุน PVD ใหม่: <span id="summaryFutureFund">0 ฿</span></p>
                         </div>
                     </div>
-                    <p class="summary-note">* ไม่รวมโบนัสเพราะเป็นรายได้ระหว่างทำงาน</p>
+                    <!-- <p class="summary-note">* ไม่รวมโบนัสเพราะเป็นรายได้ระหว่างทำงาน</p> -->
                 </div>
             </div>
+
+
 
             <!-- Footer -->
             <div class="footer">

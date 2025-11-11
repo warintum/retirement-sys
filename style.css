@@ -512,3 +512,58 @@ body {
         font-size: 32px;
     }
 }
+
+/* เพิ่มในส่วนของ .calculate-button-container */
+.calculate-button-container {
+    margin-top: 16px;
+    text-align: center;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.calculate-button {
+    background: linear-gradient(to right, #2563eb, #9333ea);
+    color: white;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.calculate-button:hover {
+    background: linear-gradient(to right, #1d4ed8, #7e22ce);
+    transform: scale(1.05);
+}
+
+.clear-button {
+    background: linear-gradient(to right, #ef4444, #dc2626);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.clear-button:hover {
+    background: linear-gradient(to right, #dc2626, #b91c1c);
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .calculate-button-container {
+        flex-direction: column;
+    }
+    
+    .calculate-button,
+    .clear-button {
+        width: 100%;
+    }
+}
